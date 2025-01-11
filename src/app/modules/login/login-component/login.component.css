@@ -1,0 +1,211 @@
+.pnl-1 {
+  height: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.pnl-1:before {
+  content: '';
+  width: 100%;
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0.73;
+  
+  background-image: linear-gradient(90deg, #75cfe5, #0c365e)
+}
+
+.pnl-2 {
+  width: 80%;
+  height: 550px;
+  border-radius: 25px;
+  box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.16);
+  background-color: #ffffff;
+  z-index: 1;
+}
+
+@media(min-width:768px) {
+  .pnl-2 {
+    width: 370px;
+  }
+  .container {
+    padding-left: 35px !important;
+    padding-right: 35px !important;
+    margin-top: 1rem !important;
+  }
+}
+
+.img-login {
+  text-align: center;
+  padding-top: 10%;
+}
+
+.logo-login {
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
+}
+
+.container {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 1rem;
+}
+
+.subtitle {
+  font-family: 'Open Sans', sans-serif !important;
+  color: #ababab;
+  font-weight: bold;
+}
+
+.inner-addon {
+  position: relative;
+}
+
+.inner-addon .aico, .aico-eye {
+  position: absolute;
+}
+
+.left-addon .aico, .aico-eye {
+  left: 91%;
+  padding-top: 8px;
+}
+
+.left-addon input {
+  padding-right: 30px;
+}
+
+.aico {
+  color: #999999;
+  z-index: 1;
+}
+
+.aico-eye {
+  color: #999999;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.aico-eye:hover {
+  color: #0083fe;
+}
+
+.requerido {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(169, 68, 66, .6);
+}
+
+.footer {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding-left: 20px;
+  font-size: 15px;
+  font-family: 'Open Sans', sans-serif !important;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.3;
+  letter-spacing: normal;
+  color: #f1f1f1;
+}
+
+.li {
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif !important;
+  color: #0083fe;
+  cursor: pointer;
+}
+
+.li:hover {
+  color: #124a7e;
+}
+
+input {
+  border-radius: 15px;
+  background-color: #f2f2f2;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border: 0px;
+  outline: medium none;
+  font-family: 'Open Sans', sans-serif !important;
+}
+
+button {
+  box-shadow: 0 1.5px 4px 0 rgba(20, 157, 183, 0.45);
+  border-radius: 15px;
+  background-color: #2076BD!important;
+  color: #f1f1f1;
+  border: 0px;
+}
+
+button:hover {
+  background-color: rgb(62, 136, 197) !important;
+}
+
+::-ms-input-placeholder {
+  color: #999999;
+  font-size: 13px;
+}
+
+::placeholder {
+  color: #999999;
+  font-size: 15px;
+}
+
+.user-icon {
+  color: #ffffff;
+  font-size: 20px;
+}
+
+#btnMargin {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+:host ::ng-deep .requerido {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(169, 68, 66, .6) !important;
+}
+
+.tbl-row {
+  font: normal normal normal 14px/16px 'Open Sans', sans-serif;
+  color: #797373;
+  font-weight: 700;
+}
+
+.tbl-row:hover {
+  background-color: #f0f1f3;
+  cursor: pointer;
+}
+
+.row-selected {
+  padding-top: 4px !important;
+  padding-left: 4px;
+  display: inline-block;
+}
+
+.icon-selected {
+  padding-bottom: 4px !important;
+  font-size: 20px;
+  color: #23ad44;
+}
+
+.my-custom-scrollbar {
+  position: relative;
+  max-height: 167px;
+  overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+  display: block;
+}

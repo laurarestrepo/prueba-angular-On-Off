@@ -1,0 +1,30 @@
+<!-- panel principal -->
+<div class="header">
+  <div class="header-content">
+    <!-- nombre usuario -->
+    <div class="user-info">
+      <span class="font-new-roman font-size-15" style="color: #fff;">
+      </span>
+    </div>
+
+    <div class="user-info">
+      <span class="font-new-roman font-size-16" style="color: #fff;">
+        {{ shellState.userAccount.auth?.usuario?.nombreCompleto }} &nbsp; &nbsp; Fecha:
+        {{ time | date: 'dd/MM/yyyy hh:mm:ss' }}
+
+      </span>
+    </div>
+
+   
+    <!-- foto del usuario -->
+    <div (click)="menuUserSettings.toggle($event)" class="user-avatar">
+      <span *ngIf="shellState.screen.isBigScreen()" class="font-new-roman font-size-16 mr-3">
+        <img src="assets/images/img-logo.png" alt="user" />
+      </span>
+      <i class="fa fa-chevron-down font-size-16"></i>
+    </div>
+  </div>
+</div>
+
+<!-- popup menu settings user -->
+<p-menu #menuUserSettings id="menuUserSettings" [popup]="true" [model]="items"></p-menu>

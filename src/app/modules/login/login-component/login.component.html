@@ -1,0 +1,73 @@
+<!-- panel principal -->
+<div class="pnl-1">
+
+  <!-- panel formulario -->
+  <div class="pnl-2">
+
+    <!-- panel imagen -->
+    <div class="img-login">
+      <img src="assets/images/img-logo.png" srcset="assets/images/img-logo.png" class="logo-login" />
+    </div>
+
+    <!-- formulario ingreso informacion -->
+    <form #formLogin="ngForm" name="formLogin"
+      (ngSubmit)="beforeIniciarSesion() && formLogin.form.valid && iniciarSesion()" novalidate>
+
+      <!-- panel ingreso informacion -->
+      <div class="ui-g container">
+
+        <!-- titulo -->
+        <div class="ui-g-12 subtitle">
+          <p class="mb-0 font-size-16">Iniciar sesión</p>
+        </div>
+
+        <!-- nombre usuario -->
+        <div class="ui-g-12 mt-3">
+          <div class="inner-addon left-addon">
+            <i class="fa fa-user font-size-16 aico"></i>
+            <input [(ngModel)]="credenciales.usuarioIngreso" type="text" id="username" name="username"
+              autocomplete="off" #username="ngModel" appRequired appAutofocus class="w-100"
+              placeholder="Nombre de Usuario" [ngClass]="{'requerido' : (formLogin.submitted && !username.valid)}" />
+          </div>
+        </div>
+        <br>
+        <!-- password -->
+        <div class="ui-g-12">
+          <div class="inner-addon left-addon">
+            <i (mousedown)="inclave.type='text'" (mouseup)="inclave.type='password'"
+              (mouseover)="inclave.type='password'" class="fa fa-eye font-size-16 aico-eye"></i>
+            <input [(ngModel)]="credenciales.claveIngreso" type="password" #inclave id="clave" name="clave"
+              autocomplete="off" #clave="ngModel" appRequired class="w-100" placeholder="Contraseña"
+              [ngClass]="{'requerido' : (formLogin.submitted && !clave.valid)}" />
+          </div>
+        </div>
+
+
+        <br>
+
+        <!-- btn inicio sesion -->
+        <div class="ui-g-12 mb-0 pb-0 text-center">
+          <div class="inner-addon left-addon">
+            <i class="fa fa-user-circle aico user-icon"></i>
+            <button type="submit" class="btn btn-primary w-100">
+              <span class="font-new-roman mr-2 font-size-12 font-weight-bold">ACEPTAR</span>
+            </button>
+
+          </div>
+
+        </div>
+      </div>
+    </form>
+
+    <!-- msj error -->
+    <div id="btnMargin">
+      <p class="text-danger text-center font-new-roman">{{msjError}}</p>
+    </div>
+
+  </div>
+
+  <!-- footer del login -->
+  <div class="footer">
+    <p class="mb-0">Copyright - 2023</p>
+  </div>
+</div>

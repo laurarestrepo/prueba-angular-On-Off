@@ -1,0 +1,8 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* Usar otro tema disponible */
+@import 'primeng/resources/themes/luna-amber/theme.css';  /* Ejemplo con otro tema */
+@import 'primeng/resources/primeng.min.css';

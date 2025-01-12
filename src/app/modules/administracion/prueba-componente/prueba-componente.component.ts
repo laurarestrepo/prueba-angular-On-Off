@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-prueba-componente',
@@ -11,9 +12,18 @@ export class PruebaComponenteComponent implements OnInit {
   constructor(protected messageService: MessageService, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
-    // Inicializar las tareas con todas las tareas
     this.tareasFiltradas = this.tareas;
   }
+
+  // Nueva tarea (con estado pendiente por defecto)
+  nuevaTarea = {
+    nombreTarea: '',
+    responsable: '',
+    estado: 'pendiente' // Estado predeterminado
+  };
+
+  // Tarea seleccionada para editar
+  tareaSeleccionada: any = null;
 
   // Mock de datos de tareas
   tareas: any[] = [
@@ -37,7 +47,6 @@ export class PruebaComponenteComponent implements OnInit {
 
   // Función para cambiar el estado de filtro y filtrar las tareas
   filtrar() {
-    // Filtrar las tareas según el estado seleccionado
     if (this.filtro.estado === 'pendiente') {
       this.tareasFiltradas = this.tareas.filter(tarea => tarea.estado === 'pendiente');
     } else if (this.filtro.estado === 'completada') {
@@ -51,27 +60,62 @@ export class PruebaComponenteComponent implements OnInit {
     this.tareasFiltradas = this.tareas; // Mostrar todas las tareas
   }
 
-  // Función de editar tarea (vacía como se solicitó)
+  // Función de editar tarea (abre el modal con los datos de la tarea)
   editarTarea(tarea: any) {
-    console.log('Editar tarea:', tarea);
+
+    this.tareaSeleccionada = tarea; // Guardar la tarea seleccionada para edición
+    this.nuevaTarea = { ...tarea }; // Copiar los valores de la tarea seleccionada al formulario del modal
+    const modalElement = document.getElementById('createTaskModal');
+    if (modalElement) {
+      const modal = bootstrap.Modal.getInstance(modalElement);
+      modal!.show(); // Abrir el modal en modo edición
+    }
+    this.limpiar()
   }
 
   // Función de eliminar tarea
   eliminarTarea(tarea: any) {
+    const index = this.tareas.indexOf(tarea);
+    if (index > -1) {
+      this.tareas.splice(index, 1);
+    }
+    this.tareasFiltradas = [...this.tareas]; // Asegurarse de que las tareas filtradas también se actualicen
+    this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'El registro se ha eliminado con éxito.' });
 
-    this.confirmationService.confirm({
-      message: '¿Esta seguro que desea eliminar el registro?',
-      header: "Confirmación",
-      accept: () => {
-        const index = this.tareas.indexOf(tarea);
+  }
+
+  // Función para agregar o actualizar una tarea
+  guardarTarea(): void {
+    if (this.nuevaTarea.nombreTarea && this.nuevaTarea.responsable) {
+      if (this.tareaSeleccionada) {
+        // Si hay tarea seleccionada, actualizamos la tarea
+        const index = this.tareas.indexOf(this.tareaSeleccionada);
         if (index > -1) {
-          this.tareas.splice(index, 1);
+          this.tareas[index] = { ...this.nuevaTarea };
         }
-        // Después de eliminar, actualizar las tareas filtradas
-        this.tareasFiltradas = [...this.tareas]; // Asegurarse de que las tareas filtradas también se actualicen
+        this.tareaSeleccionada = null; // Limpiar la tarea seleccionada después de actualizar
+      } else {
+        // Si no hay tarea seleccionada, agregamos una nueva
+        this.tareas.push({ ...this.nuevaTarea });
       }
-    });
+      this.nuevaTarea = { nombreTarea: '', responsable: '', estado: 'pendiente' }; // Resetear el formulario
+      const modalElement = document.getElementById('createTaskModal');
+      if (modalElement) {
+        const modal = bootstrap.Modal.getInstance(modalElement);
+        modal!.hide(); // Cerrar el modal
+        document.body.classList.remove('modal-open'); // Asegurarse de que no haya el fondo residual
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+          backdrop.remove(); // Eliminar manualmente el backdrop si persiste
+        }
+      }
 
+      this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Registro almacenado con éxito.' });
+
+    } else {
+      this.messageService.add({ severity: 'error', summary: 'Éxito', detail: 'Debe diligenciar todos los campos.' });
+
+    }
   }
 
 }

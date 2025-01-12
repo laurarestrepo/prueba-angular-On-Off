@@ -2,6 +2,7 @@
 import { Routes } from '@angular/router';
 import { BienvenidaComponent } from './bienvenida/bienvenida.component';
 import { RouterConstant } from './../../constants/router.constant';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 /**
  * Constante que contiene todos los routers que el usuario
@@ -14,7 +15,7 @@ export const ROUTES: Routes = [
     children: [
       {
         path: RouterConstant.ROUTER_BIENVENIDA,
-        component: BienvenidaComponent
+        component: DashboardComponent
       },
       {
         path: RouterConstant.ROUTER_ADMINISTRACION,

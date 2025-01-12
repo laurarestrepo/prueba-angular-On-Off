@@ -3,6 +3,7 @@ import { ShellState } from "../../../states/shell/shell.state";
 import { AuthService } from "../../../services/auth.service";
 import { MessageService } from "primeng/api";
 import { AutenticacionRequestDTO } from "../../../dtos/seguridad/autenticacion/autenticacion-request.dto";
+import { SessionStoreUtil } from "../../../utils/session-store.util";
 
 /**
  * Componente para la autenticacion del sistema ADMIN
@@ -61,6 +62,14 @@ export class LoginComponent implements OnInit {
     this.init();
   }
 
+  tareas: any[] = [
+    { nombreTarea: 'Tarea 1', responsable: 'Juan', estado: 'pendiente' },
+    { nombreTarea: 'Tarea 2', responsable: 'Maria', estado: 'completada' },
+    { nombreTarea: 'Tarea 3', responsable: 'Carlos', estado: 'pendiente' },
+    { nombreTarea: 'Tarea 4', responsable: 'Pedro', estado: 'completada' },
+  ];
+
+
   /**
    * Metodo que soporta el evento click del boton iniciar sesion
    */
@@ -72,15 +81,13 @@ export class LoginComponent implements OnInit {
     ) {
       this.authService.login(this.credenciales.usuarioIngreso, this.credenciales.claveIngreso).subscribe(isAuthenticated => {
         if (isAuthenticated) {
-          this.credenciales.nombreCompleto= "Laura Rodriguez Restrepo"
+          this.credenciales.nombreCompleto = "Laura Rodriguez Restrepo"
           this.shellState.iniciarSesion(JSON.parse(this.menu), this.credenciales);
+          SessionStoreUtil.totalesTateas("SET", this.tareas);
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Correo electrónico o contraseña incorrectos.' });
         }
       });
-
-
-
     }
   }
 
@@ -88,8 +95,6 @@ export class LoginComponent implements OnInit {
    * Metodo que es ejecutado antes de invocar el metodo iniciar sesion
    */
   public beforeIniciarSesion(): boolean {
-
-
     return true;
   }
 

@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { ChartModule } from 'primeng/chart'; // Asegúrate de que esto esté importado
+import { TaskService } from '../../services/tareas.service';
 
 /**
  * Modulo que contiene todos los artefactos que el usuario
@@ -26,7 +27,7 @@ import { ChartModule } from 'primeng/chart'; // Asegúrate de que esto esté imp
     BienvenidaComponent,
     DashboardComponent
   ],
-  providers: [
+  providers: [TaskService
   ] ,
   schemas: [CUSTOM_ELEMENTS_SCHEMA], // Para mostrar el grafico
 

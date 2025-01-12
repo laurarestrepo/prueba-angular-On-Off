@@ -60,43 +60,45 @@
         </ng-container>
 
         <!-- TAB - Tareas -->
-        <div class="ui-g-12 p-3 mt-2 ml-2 mr-2 ">
+        <!-- TAB - Tareas -->
+        <div class="ui-g-12 p-3 mt-2 ml-2 mr-2">
             <ng-container *ngIf="tareas.length > 0">
-                <p-table id="tbldeliveries" #tbldeliveries [responsive]="true" [paginator]="true" [lazy]="true"
-                    styleClass="tbl-app" [value]="tareasFiltradas" [rows]="10" [rowsPerPageOptions]="[5, 10, 25]">
-                    <ng-template pTemplate="header">
+                <table id="tbldeliveries" #tbldeliveries class="tbl-app">
+                    <thead>
                         <tr>
                             <th>Nombre Tarea</th>
                             <th>Responsable</th>
                             <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-tarea>
-                        <tr>
-                            <td>{{ tarea.nombreTarea }}</td>
-                            <td>{{ tarea.responsable }}</td>
-                            <td>{{ tarea.estado | titlecase }}</td>
-                            <td>
-
-                                <i (click)="editarTarea(tarea)" class="fa fa-pencil pencil" title="Editar "></i>
-                                &nbsp;
-                                <i (click)="eliminarTarea(tarea)" [ngClass]="'trash'" class="fa fa-trash"
-                                    title="Eliminar ">
-                                </i>
-                                &nbsp;
-    <i (click)="cambiarEstadoTarea(tarea)" [ngClass]="'fa-exchange text-warning'" class="fa btn-icon" title="Cambiar Estado"></i>
-
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let tarea of tareasFiltradas; trackBy: trackByTarea">
+                            <tr>
+                                <td>{{ tarea.nombreTarea }}</td>
+                                <td>{{ tarea.responsable }}</td>
+                                <td>{{ tarea.estado | titlecase }}</td>
+                                <td>
+                                    <i (click)="editarTarea(tarea)" class="fa fa-pencil pencil" title="Editar "></i>
+                                    &nbsp;
+                                    <i (click)="eliminarTarea(tarea)" [ngClass]="'trash'" class="fa fa-trash"
+                                        title="Eliminar "></i>
+                                    &nbsp;
+                                    <i (click)="cambiarEstadoTarea(tarea)" [ngClass]="'fa-exchange text-warning'"
+                                        class="fa btn-icon" title="Cambiar Estado"></i>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
             </ng-container>
 
             <ng-container *ngIf="tareas.length === 0">
                 <p>No hay tareas que mostrar.</p>
             </ng-container>
         </div>
+
+
     </div>
 </div>
 

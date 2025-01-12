@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { SessionStoreUtil } from '../../../utils/session-store.util';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,16 +14,19 @@ export class DashboardComponent {
 
  // Mock de datos de tareas (se pueden tomar de una fuente real como un servicio)
  tareas: any[] = [
-   { nombreTarea: 'Tarea 1', responsable: 'Juan', estado: 'pendiente' },
-   { nombreTarea: 'Tarea 2', responsable: 'Maria', estado: 'completada' },
-   { nombreTarea: 'Tarea 3', responsable: 'Carlos', estado: 'pendiente' },
-   { nombreTarea: 'Tarea 4', responsable: 'Pedro', estado: 'completada' },
+  
  ];
+ totalTareas: number = 0;
 
  constructor(private messageService: MessageService) {}
 
  ngOnInit(): void {
+  this.tareas = SessionStoreUtil.totalesTateas("GET");
+
    this.setupChart();
+
+   this.totalTareas = this.tareas.length;
+
  }
 
  // Configuración de los datos y opciones del gráfico

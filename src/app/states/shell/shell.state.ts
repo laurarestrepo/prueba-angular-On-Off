@@ -41,7 +41,6 @@ export class ShellState {
   constructor(
     private router: Router,) {
     this.auth = SessionStoreUtil.auth("GET");
-   
 
     // Estado para notificar el tamanio de la pantalla
     this.screen = new ScreenST();
@@ -73,29 +72,27 @@ export class ShellState {
     // se construye el menu de la aplicacion
     this.menu.initMenu(itemsMenu);
 
-  
+
     // se redirecciona a la pagina de bienvenida
     this.router.navigate([RouterConstant.NAVIGATE_BIENVENIDA]);
   }
 
-  iniciarmenu(items:any){
-     // se construye el menu de la aplicacion
-     this.menu.initMenu(items);
+  iniciarmenu(items: any) {
+    // se construye el menu de la aplicacion
+    this.menu.initMenu(items);
 
   }
   /**
    * Metodo que soporta el evento cerrar sesion del menu
    */
   public cerrarSesion(): void {
-  
+
     // se cambia el estado de la cuenta a sesion cerrada
     this.userAccount.changeStateSesionCerrada();
 
     // se destruye el menu para limpiar memoria
     this.menu.destroyMenu();
 
-    // se para el timeout sesion
- 
     // se redirecciona al LOGIN
     this.router.navigate([RouterConstant.NAVIGATE_LOGIN]);
   }
@@ -115,20 +112,6 @@ export class ShellState {
     this.modalTimeOut.closeModal();
   }
 
-
-
-  /**
-   * Metodo que permite configurar el timeOut cuando
-   * existe una autenticacion en el session store
-   */
- 
-
-
-  /**
-   * Método que permite verificar si la programación del vendedor aún está activa
-   */
- 
- 
 
 
 }

@@ -30,13 +30,13 @@ export class SessionStoreUtil {
     return this.implementarEvento(evento, this.KEY_MENU, items);
   }
 
-    /**
-   * Metodo que permite administrar los items del menu
-   */
-    public static totalesTateas(evento: any, items?: Array<any>): Array<any> {
-      return this.implementarEvento(evento, this.KEY_TAREAS, items);
-    }
-  
+  /**
+ * Metodo que permite administrar los items del menu
+ */
+  public static totalesTateas(evento: any, items?: Array<any>): Array<any> {
+    return this.implementarEvento(evento, this.KEY_TAREAS, items);
+  }
+
 
   /**
    * Metodo que permite obtener el identificador del usuario autenticado
@@ -62,6 +62,7 @@ export class SessionStoreUtil {
   public static cleanAll(): void {
     sessionStorage.removeItem(this.KEY_AUTENTICACION);
     sessionStorage.removeItem(this.KEY_MENU);
+    sessionStorage.removeItem(this.KEY_TAREAS);
   }
 
   /**

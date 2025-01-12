@@ -1,11 +1,18 @@
 <div class="pnl1 mat-elevation-z8">
-    <div class="head">
-        <span class="title">Indicador tareas </span>
-    </div>
-    <div class="ui-g">
-<div class="dashboard-container">
-    <div class="card">
-      <p-chart class="small-chart" type="doughnut" [data]="chartData" [options]="chartOptions"></p-chart>
+  <div class="head">
+    <span class="title">Indicador tareas</span>
+  </div>
+
+  <div class="ui-g">
+    <div class="dashboard-container">
+      <div class="card">
+        <p-chart class="small-chart" type="doughnut" [data]="chartData" [options]="chartOptions"></p-chart>
+      </div>
+      <!-- Mostrar el total de tareas -->
+      <div class="total-tareas">
+        <span class="total-label">Total de tareas:</span>
+        <span class="total-value">{{ totalTareas }}</span>
+      </div>
     </div>
   </div>
 </div>

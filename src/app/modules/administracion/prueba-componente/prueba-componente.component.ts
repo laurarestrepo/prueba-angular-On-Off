@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import * as bootstrap from 'bootstrap';
+import { SessionStoreUtil } from '../../../utils/session-store.util';
 
 @Component({
   selector: 'app-prueba-componente',
@@ -13,11 +14,13 @@ export class PruebaComponenteComponent implements OnInit {
   constructor(protected messageService: MessageService, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
+    this.tareas = SessionStoreUtil.totalesTateas("GET");
     this.tareasFiltradas = this.tareas;
   }
 
   // Nueva tarea (con estado pendiente por defecto)
   nuevaTarea = {
+
     nombreTarea: '',
     responsable: '',
     estado: 'pendiente' // Estado predeterminado
@@ -26,11 +29,8 @@ export class PruebaComponenteComponent implements OnInit {
   // Tarea seleccionada para editar
   tareaSeleccionada: any = null;
 
-  // Mock de datos de tareas
   tareas: any[] = [
-    { nombreTarea: 'Tarea 1', responsable: 'Juan', estado: 'pendiente' },
-    { nombreTarea: 'Tarea 2', responsable: 'Maria', estado: 'completada' },
-    { nombreTarea: 'Tarea 3', responsable: 'Carlos', estado: 'pendiente' }
+
   ];
 
   // Variable que almacena las tareas filtradas
@@ -57,32 +57,35 @@ export class PruebaComponenteComponent implements OnInit {
 
   // Función para limpiar los filtros y mostrar todas las tareas
   limpiar() {
-    this.filtro.estado = ''; // O cualquier valor predeterminado
-    this.tareasFiltradas = this.tareas; // Mostrar todas las tareas
+    this.filtro.estado = ''; 
+    this.tareasFiltradas = this.tareas; 
+
+
   }
 
   editarTarea(tarea: any) {
-    this.tareaSeleccionada = tarea; // Guardar la tarea seleccionada para edición
-    this.nuevaTarea = { ...tarea }; // Copiar los valores de la tarea seleccionada al formulario del modal
-    
+    this.tareaSeleccionada = tarea;
+    this.nuevaTarea = { ...tarea };
     const modalElement = document.getElementById('createTaskModal');
     if (modalElement) {
-      // Usar new bootstrap.Modal() en lugar de getInstance()
-      const modal = new bootstrap.Modal(modalElement); 
-      modal.show(); // Abrir el modal en modo edición
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show(); 
     }
-    
-    // Limpiar cualquier estado previo, si es necesario
+
+    SessionStoreUtil.totalesTateas("ELIMINAR", this.tareas);
+    SessionStoreUtil.totalesTateas("SET", this.tareas);
     this.limpiar();
   }
-  
-   // Método que cambia el estado de la tarea
-   cambiarEstadoTarea(tarea: any): void {
+
+  // Método que cambia el estado de la tarea
+  cambiarEstadoTarea(tarea: any): void {
     if (tarea.estado === 'pendiente') {
       tarea.estado = 'completada';
     } else if (tarea.estado === 'completada') {
       tarea.estado = 'pendiente';
     }
+    SessionStoreUtil.totalesTateas("ELIMINAR", this.tareas);
+    SessionStoreUtil.totalesTateas("SET", this.tareas);
   }
 
   // Función de eliminar tarea
@@ -91,34 +94,35 @@ export class PruebaComponenteComponent implements OnInit {
     if (index > -1) {
       this.tareas.splice(index, 1);
     }
-    this.tareasFiltradas = [...this.tareas]; // Asegurarse de que las tareas filtradas también se actualicen
+    this.tareasFiltradas = [...this.tareas]; 
     this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'El registro se ha eliminado con éxito.' });
 
+    SessionStoreUtil.totalesTateas("ELIMINAR", this.tareas);
+    SessionStoreUtil.totalesTateas("SET", this.tareas);
   }
 
   // Función para agregar o actualizar una tarea
   guardarTarea(): void {
     if (this.nuevaTarea.nombreTarea && this.nuevaTarea.responsable) {
       if (this.tareaSeleccionada) {
-        // Si hay tarea seleccionada, actualizamos la tarea
         const index = this.tareas.indexOf(this.tareaSeleccionada);
         if (index > -1) {
           this.tareas[index] = { ...this.nuevaTarea };
         }
-        this.tareaSeleccionada = null; // Limpiar la tarea seleccionada después de actualizar
+        this.tareaSeleccionada = null; 
       } else {
         // Si no hay tarea seleccionada, agregamos una nueva
         this.tareas.push({ ...this.nuevaTarea });
       }
-      this.nuevaTarea = { nombreTarea: '', responsable: '', estado: 'pendiente' }; // Resetear el formulario
+      this.nuevaTarea = { nombreTarea: '', responsable: '', estado: 'pendiente' }; 
       const modalElement = document.getElementById('createTaskModal');
       if (modalElement) {
         const modal = bootstrap.Modal.getInstance(modalElement);
         modal!.hide(); // Cerrar el modal
-        document.body.classList.remove('modal-open'); // Asegurarse de que no haya el fondo residual
+        document.body.classList.remove('modal-open'); 
         const backdrop = document.querySelector('.modal-backdrop');
         if (backdrop) {
-          backdrop.remove(); // Eliminar manualmente el backdrop si persiste
+          backdrop.remove(); 
         }
       }
 
@@ -126,9 +130,16 @@ export class PruebaComponenteComponent implements OnInit {
 
     } else {
       this.messageService.add({ severity: 'error', summary: 'Éxito', detail: 'Debe diligenciar todos los campos.' });
-      this.msjError = 
-      "Correo electrónico o contraseña incorrectos";
+      this.msjError =
+        "Correo electrónico o contraseña incorrectos";
     }
+
+    SessionStoreUtil.totalesTateas("ELIMINAR", this.tareas);
+    SessionStoreUtil.totalesTateas("SET", this.tareas);
   }
 
+  // Método trackBy para optimizar el rendimiento en las listas
+  trackByTarea(index: number, tarea: any): number {
+    return tarea.id;
+  }
 }

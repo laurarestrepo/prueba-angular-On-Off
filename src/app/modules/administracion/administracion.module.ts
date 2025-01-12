@@ -8,6 +8,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmationService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import {  ConfirmDialogModule } from 'primeng/confirmdialog';
+import { TaskService } from '../../services/tareas.service';
 
 /*
  * Modulo que contiene todos los componentes relacionados
@@ -30,6 +31,6 @@ import {  ConfirmDialogModule } from 'primeng/confirmdialog';
   ],
   declarations: [   
   PruebaComponenteComponent],
-  providers:[ConfirmationService, ]
+  providers:[ConfirmationService, TaskService ]
 })
 export class AdministracionModule {}

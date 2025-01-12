@@ -26,7 +26,7 @@
           <div class="inner-addon left-addon">
             <i class="fa fa-user font-size-16 aico"></i>
             <input [(ngModel)]="credenciales.usuarioIngreso" type="text" id="username" name="username"
-              autocomplete="off" #username="ngModel" appRequired appAutofocus class="w-100"
+              autocomplete="off" #username="ngModel"   class="w-100"
               placeholder="Nombre de Usuario" [ngClass]="{'requerido' : (formLogin.submitted && !username.valid)}" />
           </div>
         </div>
@@ -37,7 +37,7 @@
             <i (mousedown)="inclave.type='text'" (mouseup)="inclave.type='password'"
               (mouseover)="inclave.type='password'" class="fa fa-eye font-size-16 aico-eye"></i>
             <input [(ngModel)]="credenciales.claveIngreso" type="password" #inclave id="clave" name="clave"
-              autocomplete="off" #clave="ngModel" appRequired class="w-100" placeholder="Contraseña"
+              autocomplete="off" #clave="ngModel"  class="w-100" placeholder="Contraseña"
               [ngClass]="{'requerido' : (formLogin.submitted && !clave.valid)}" />
           </div>
         </div>
@@ -71,3 +71,6 @@
     <p class="mb-0">Copyright - 2023</p>
   </div>
 </div>
+
+
+<p-toast></p-toast>

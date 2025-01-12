@@ -8,6 +8,7 @@ import * as bootstrap from 'bootstrap';
   styleUrls: ['./prueba-componente.component.css']
 })
 export class PruebaComponenteComponent implements OnInit {
+  msjError: string = "";
 
   constructor(protected messageService: MessageService, private confirmationService: ConfirmationService) { }
 
@@ -60,17 +61,28 @@ export class PruebaComponenteComponent implements OnInit {
     this.tareasFiltradas = this.tareas; // Mostrar todas las tareas
   }
 
-  // Función de editar tarea (abre el modal con los datos de la tarea)
   editarTarea(tarea: any) {
-
     this.tareaSeleccionada = tarea; // Guardar la tarea seleccionada para edición
     this.nuevaTarea = { ...tarea }; // Copiar los valores de la tarea seleccionada al formulario del modal
+    
     const modalElement = document.getElementById('createTaskModal');
     if (modalElement) {
-      const modal = bootstrap.Modal.getInstance(modalElement);
-      modal!.show(); // Abrir el modal en modo edición
+      // Usar new bootstrap.Modal() en lugar de getInstance()
+      const modal = new bootstrap.Modal(modalElement); 
+      modal.show(); // Abrir el modal en modo edición
     }
-    this.limpiar()
+    
+    // Limpiar cualquier estado previo, si es necesario
+    this.limpiar();
+  }
+  
+   // Método que cambia el estado de la tarea
+   cambiarEstadoTarea(tarea: any): void {
+    if (tarea.estado === 'pendiente') {
+      tarea.estado = 'completada';
+    } else if (tarea.estado === 'completada') {
+      tarea.estado = 'pendiente';
+    }
   }
 
   // Función de eliminar tarea
@@ -114,7 +126,8 @@ export class PruebaComponenteComponent implements OnInit {
 
     } else {
       this.messageService.add({ severity: 'error', summary: 'Éxito', detail: 'Debe diligenciar todos los campos.' });
-
+      this.msjError = 
+      "Correo electrónico o contraseña incorrectos";
     }
   }
 

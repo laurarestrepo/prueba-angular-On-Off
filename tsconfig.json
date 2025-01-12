@@ -2,6 +2,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "types": ["cypress"],  // Asegúrate de que esta línea esté presente
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,

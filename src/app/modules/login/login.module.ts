@@ -5,8 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
-
-
+import { ToastModule } from 'primeng/toast';
 /**
  * Modulo para la autenticacion del sistema
  */
@@ -21,7 +20,8 @@ import { DropdownModule } from 'primeng/dropdown';
     CommonModule,
     FormsModule,
     DialogModule,
-    DropdownModule
+    DropdownModule,
+    ToastModule
   ],
   declarations: [
     LoginComponent

@@ -5,11 +5,11 @@
 export class AutenticacionRequestDTO {
 
     /** Es la clave de ingreso al sistema */
-    public claveIngreso: string;
+    public claveIngreso?: string;
 
     /** Es el usuario de ingreso al sistema */
-    public usuarioIngreso: string;
-
-	/** Indica a que aplicacion se va autenticar */
-	public idAplicacion: number;    
+    public usuarioIngreso?: string;
+    
+    public nombreCompleto?: string;
+ 
 }

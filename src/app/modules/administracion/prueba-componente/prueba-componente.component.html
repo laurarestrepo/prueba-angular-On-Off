@@ -7,20 +7,23 @@
         <!-- btn ver filtro -->
         <div class="ui-g-6 text-left pb-0 pt-0 pr-0 pl-0 d-flex align-items-center">
             <div class="mt-3 ml-3 mb-0 mr-0">
-                <button (click)="toogleShowFilter()" class="btn-light-dark w-130-px" type="button" title="Oculta el panel de filtros de búsqueda">
+                <button (click)="toogleShowFilter()" class="btn-light-dark w-130-px" type="button"
+                    title="Oculta el panel de filtros de búsqueda">
                     <label class="btn-label">Ver Filtros</label>
-                    <i [ngClass]="isShowFilter ? 'fa-arrow-circle-down' : 'fa-arrow-circle-up'" class="fa btn-icon font-size-20 pl-2"></i>
+                    <i [ngClass]="isShowFilter ? 'fa-arrow-circle-down' : 'fa-arrow-circle-up'"
+                        class="fa btn-icon font-size-20 pl-2"></i>
                 </button>
             </div>
             <div class="mt-3 ml-3 mb-0 mr-0 ms-auto"> <!-- ms-auto para alinear a la derecha -->
-                <button data-bs-toggle="modal" data-bs-target="#createTaskModal" class="btn-light-dark w-130-px" type="button">
+                <button data-bs-toggle="modal" data-bs-target="#createTaskModal" class="btn-light-dark w-130-px"
+                    type="button">
                     <label class="btn-label">Crear Nueva Tarea</label>
                 </button>
             </div>
         </div>
-        
-        
-     
+
+
+
 
         <!-- panel filtros -->
         <ng-container *ngIf="isShowFilter">
@@ -32,6 +35,7 @@
                             <input type="radio" name="estado" [(ngModel)]="filtro.estado" value="pendiente" />
                             Pendientes
                         </label>
+                        &nbsp;
                         <label>
                             <input type="radio" name="estado" [(ngModel)]="filtro.estado" value="completada" />
                             Completadas
@@ -80,6 +84,9 @@
                                 <i (click)="eliminarTarea(tarea)" [ngClass]="'trash'" class="fa fa-trash"
                                     title="Eliminar ">
                                 </i>
+                                &nbsp;
+    <i (click)="cambiarEstadoTarea(tarea)" [ngClass]="'fa-exchange text-warning'" class="fa btn-icon" title="Cambiar Estado"></i>
+
                             </td>
                         </tr>
                     </ng-template>
@@ -102,7 +109,8 @@
         <div class="modal-content">
             <!-- Header del Modal -->
             <div class="modal-header">
-                <h5 class="modal-title" id="createTaskModalLabel">{{ tareaSeleccionada ? 'Editar Tarea' : 'Crear Tarea' }}</h5>
+                <h5 class="modal-title" id="createTaskModalLabel">{{ tareaSeleccionada ? 'Editar Tarea' : 'Crear Tarea'
+                    }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -143,7 +151,8 @@
                     <!-- Botones del formulario -->
                     <div class="d-flex justify-content-between">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">{{ tareaSeleccionada ? 'Actualizar Tarea' : 'Crear Tarea' }}</button>
+                        <button type="submit" class="btn btn-primary">{{ tareaSeleccionada ? 'Actualizar Tarea' : 'Crear
+                            Tarea' }}</button>
                     </div>
                 </form>
             </div>

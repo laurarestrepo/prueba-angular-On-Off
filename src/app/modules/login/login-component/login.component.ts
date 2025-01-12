@@ -1,5 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { ShellState } from "../../../states/shell/shell.state";
+import { AuthService } from "../../../services/auth.service";
+import { MessageService } from "primeng/api";
+import { AutenticacionRequestDTO } from "../../../dtos/seguridad/autenticacion/autenticacion-request.dto";
 
 /**
  * Componente para la autenticacion del sistema ADMIN
@@ -7,19 +10,19 @@ import { ShellState } from "../../../states/shell/shell.state";
 @Component({
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.css"],
-  providers: [],
+  providers: [MessageService],
 })
-export class LoginComponent  implements OnInit {
+export class LoginComponent implements OnInit {
   /** Se utiliza para capturar las credenciales del usuario */
-  public credenciales: any;
+  public credenciales!: AutenticacionRequestDTO;
 
   /** Contiene el mensaje de error presentada en la autenticacion */
-  public msjError: string ="";
+  public msjError: string = "";
   private json: string = JSON.stringify({
     usuario: {
       idUsuario: 1069,
       usuario: "10101012",
-      nombreCompleto: "Powwi usuario conectado ",
+      nombreCompleto: "Usuario conectado ",
       clave: "$2a$10$Ez9PhFiygHdYV/rWu6Dhf.feuK5flp8b1ax8uaVOtbalih9bSGQni",
     },
   });
@@ -35,8 +38,8 @@ export class LoginComponent  implements OnInit {
       items: [
         {
           id: "67",
-          label: "Prueba render",
-          title: "Prueba render ",
+          label: "Gestión de Tareas",
+          title: "Gestión de Tareas",
           icon: "",
           routerLink:
             "/autenticado/administracion/prueba/prueba-componente",
@@ -48,7 +51,7 @@ export class LoginComponent  implements OnInit {
   /**
    * @param shellState, se utiliza para notificar el inicio de sesion
    */
-  constructor(protected shellState : ShellState) {
+  constructor(protected shellState: ShellState, private authService: AuthService, protected messageService: MessageService) {
   }
 
   /**
@@ -62,17 +65,22 @@ export class LoginComponent  implements OnInit {
    * Metodo que soporta el evento click del boton iniciar sesion
    */
   public iniciarSesion(): void {
-    this.shellState.iniciarSesion(JSON.parse(this.menu), JSON.parse(this.json));
-
-    // se valida la nulalidad de las credenciales
     if (
       this.credenciales &&
       this.credenciales.claveIngreso &&
       this.credenciales.usuarioIngreso
     ) {
-     alert("ok")
-      // se procede a iniciar sesion en el sistema
-      this.shellState.iniciarSesion(JSON.parse(this.menu), JSON.parse(this.json));
+      this.authService.login(this.credenciales.usuarioIngreso, this.credenciales.claveIngreso).subscribe(isAuthenticated => {
+        if (isAuthenticated) {
+          this.credenciales.nombreCompleto= "Laura Rodriguez Restrepo"
+          this.shellState.iniciarSesion(JSON.parse(this.menu), this.credenciales);
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Correo electrónico o contraseña incorrectos.' });
+        }
+      });
+
+
+
     }
   }
 
@@ -80,8 +88,8 @@ export class LoginComponent  implements OnInit {
    * Metodo que es ejecutado antes de invocar el metodo iniciar sesion
    */
   public beforeIniciarSesion(): boolean {
-   
-    
+
+
     return true;
   }
 
@@ -89,7 +97,7 @@ export class LoginComponent  implements OnInit {
    * Metodo que permite inicializar las variables globales
    */
   private init(): void {
-    this.credenciales = null;
+    this.credenciales = new AutenticacionRequestDTO();;
   }
 
 }

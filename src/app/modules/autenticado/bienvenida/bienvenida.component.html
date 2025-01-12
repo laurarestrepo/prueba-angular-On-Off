@@ -1,10 +1,15 @@
 <!-- para dispositivos con resolucion grande -->
-
+<app-menu [@openClose]="(shellState.screen.isBigScreen() && (shellState.menu.isToogleMenuFirstTime || shellState.menu.isMenuOpen))  ? 'open-menu' : 'closed-menu'" class="content-menu">
+</app-menu>
 
 <!-- para dispositivos con resolucion pequenia -->
-
+<p-sidebar id="smallMenu"
+  *ngIf="!shellState.screen.isBigScreen()"
+  [(visible)]="shellState.menu.isMenuOpen"
+  [showCloseIcon]="false"
+  [baseZIndex]="10000">
     <app-menu class="content-menu"></app-menu>
-
+</p-sidebar>
 
 <!-- aca es donde va el contenido del shell -->
 <div id="maincontent" class="body-style">
@@ -12,11 +17,9 @@
   <!-- header del shell -->
   <app-header> </app-header>
 
-  <!-- miga de pan del shel -->
-
 
   <!-- Aca es donde va las paginas seleccionadas por el user -->
-  <div  class="contenido">
+  <div [@openClose]="(shellState.screen.isBigScreen() && (shellState.menu.isToogleMenuFirstTime || shellState.menu.isMenuOpen))  ? 'open-menu-content' : 'closed-menu-content'" class="contenido">
     <router-outlet></router-outlet>
-  </div>  
+  </div>
 </div>

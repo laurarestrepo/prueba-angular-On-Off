@@ -13,10 +13,10 @@ import { LabelsConstant } from '../../../constants/labels.constant';
 export class MenuST {
 
   /** Se utiliza para mostrar/ocultar el menu */
-  public isMenuOpen = true;
+  public isMenuOpen = false;
 
   /** Indica si el toogle del menu se visualiza por primera vez */
-  public isToogleMenuFirstTime = true;
+  public isToogleMenuFirstTime = false;
 
   /** Son los modulos a visualizar en el menu */
   public modulos: Array<MenuItemDTO> = new Array<MenuItemDTO>;
@@ -48,7 +48,7 @@ export class MenuST {
     const auth: any = SessionStoreUtil.auth("GET");
 
     // se valida que el user si este autenticado
-    if (auth && auth.usuario && auth.usuario.idUsuario) {
+    if (auth && auth.usuario) {
 
       // se obtiene los items asociados al usuario del session store
       const items: Array<MenuItemDTO> = SessionStoreUtil.menu("GET");

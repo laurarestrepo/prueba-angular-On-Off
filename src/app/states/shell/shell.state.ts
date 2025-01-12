@@ -78,6 +78,11 @@ export class ShellState {
     this.router.navigate([RouterConstant.NAVIGATE_BIENVENIDA]);
   }
 
+  iniciarmenu(items:any){
+     // se construye el menu de la aplicacion
+     this.menu.initMenu(items);
+
+  }
   /**
    * Metodo que soporta el evento cerrar sesion del menu
    */

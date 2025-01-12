@@ -6,9 +6,7 @@ import { UsuarioDTO } from './usuario.dto';
 export class AutenticacionResponseDTO {
 
     /** son los datos del usuario autenticado */
-    public usuario: UsuarioDTO;
+    public usuario?: UsuarioDTO;
 
-	/** Es el identificador de la empresa a gestionar */
-	public idEmpresaGestionar: number;
 
 }

@@ -1418,3 +1418,30 @@ body .ui-multiselect.multi-horario .ui-multiselect-trigger{
 .tbl-app .ui-dropdown {
   margin-bottom: 15px;
 }
+
+:host {
+  display: flex;
+  background-color: #f4f4f4;
+  flex-grow: 1;
+}
+
+.body-style {
+  flex-grow: 1;
+  overflow: auto !important;
+}
+
+.contenido {
+  padding: 10px;
+}
+
+:host ::ng-deep #smallMenu .ui-sidebar-left {
+  width: 242px !important;
+}
+
+:host ::ng-deep #smallMenu .ui-sidebar {
+  padding: 0px !important;  
+}
+
+.p-sidebar{
+  background-color: #2076BD;
+}

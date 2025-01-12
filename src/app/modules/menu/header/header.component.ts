@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { RouterConstant } from './../../../constants/router.constant';
 import { ShellState } from '../../../states/shell/shell.state';
 import { MenuItem } from 'primeng/api';
+import { Location } from '@angular/common';
 import {
   trigger,
   state,
@@ -8,8 +11,10 @@ import {
   animate,
   transition
 } from '@angular/animations';
-import { LabelsConstant } from '../../../constants/labels.constant';
+import { AutenticacionResponseDTO } from '../../../dtos/seguridad/autenticacion/autenticacion-response.dto';
+import { SpinnerState } from '../../../states/spinner.state';
 import { SessionStoreUtil } from '../../../utils/session-store.util';
+import { LabelsConstant } from '../../../constants/labels.constant';
 
 /**
  * Es el Header del shell de la aplicacion, contiene el menu de las
@@ -35,7 +40,7 @@ export class HeaderComponent implements OnInit {
   public items!: MenuItem[];
 
   /** Son los datos de la autenticacion */
-  public dataAutenticacion: any;
+  public dataAutenticacion!: AutenticacionResponseDTO;
 
   /**
    * @param shellState, se utiliza para mostrar/ocultar el menu
@@ -47,7 +52,10 @@ export class HeaderComponent implements OnInit {
    * @param spinnerState, se utiliza para simular el spinner
    */
   constructor(
-    public shellState: ShellState) {}
+    public shellState: ShellState,
+    private router: Router,
+    private spinnerState: SpinnerState,
+    private location: Location) {}
 
   /**
    * Se construye el menu de configuracion de cuenta
@@ -63,6 +71,12 @@ export class HeaderComponent implements OnInit {
     this.shellState.cerrarSesion();
   }
 
+  /**
+   * Metodo que soporta el evento click del menu Pagina de inicio
+   */
+  public goToBienvenida(): void {
+    this.router.navigate([RouterConstant.NAVIGATE_BIENVENIDA]);
+  }
 
 
   /**
@@ -71,7 +85,11 @@ export class HeaderComponent implements OnInit {
    */
   private construirItemsUser(): void {
     this.items = [
-     
+      {
+        label: LabelsConstant.MENU_PAGINA_INICIO,
+        icon: 'fa fa-fw fa-home font-size-18 mr-1',
+        command: (click) => this.goToBienvenida()
+      },
       { label: LabelsConstant.CERRAR_SESION,
         icon: 'fa fa-fw fa-power-off font-size-18 mr-1',
         command: (click) => this.cerrarSesion()
@@ -97,9 +115,7 @@ export class HeaderComponent implements OnInit {
     // se configura los datos de la autenticacion
     this.dataAutenticacion = SessionStoreUtil.auth("GET");
 
-    // se obtiene los roles asociados a la empresa a gestionar
-   
+
   }
-  
   
 }

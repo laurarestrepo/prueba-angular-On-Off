@@ -11,11 +11,9 @@ export class SessionStoreUtil {
   /** Key que representa los datos del Menu */
   private static readonly KEY_MENU: string = 'MENU';
 
-  /** Key que representa los datos de un giro */
-  private static readonly KEY_GIRO: string = 'GIRO';
+  /** Key que representa las tareas para los indicadores */
+  private static readonly KEY_TAREAS: string = 'TAREAS';
 
-  /** Key que representa las configuraciones de los giros */
-  private static readonly KEY_GIRO_CONFIGURACIONES: string = 'GIRO_CONFIGURACIONES';
 
   /**
    * Metodo que permite administrar el DTO que contiene
@@ -31,6 +29,14 @@ export class SessionStoreUtil {
   public static menu(evento: any, items?: Array<any>): Array<any> {
     return this.implementarEvento(evento, this.KEY_MENU, items);
   }
+
+    /**
+   * Metodo que permite administrar los items del menu
+   */
+    public static totalesTateas(evento: any, items?: Array<any>): Array<any> {
+      return this.implementarEvento(evento, this.KEY_TAREAS, items);
+    }
+  
 
   /**
    * Metodo que permite obtener el identificador del usuario autenticado

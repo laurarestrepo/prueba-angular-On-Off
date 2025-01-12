@@ -6,5 +6,5 @@ import { MenuItemDTO } from '../menu/menu-item.dto';
 export class BienvenidaResponseDTO {
 
     /** son los items del menu */
-    public itemsMenu: Array<MenuItemDTO>;
+    public itemsMenu?: Array<MenuItemDTO>;
 }

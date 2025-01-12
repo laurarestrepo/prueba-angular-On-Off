@@ -28,7 +28,7 @@ import { RouterConstant } from '../../../constants/router.constant';
 export class MenuComponent implements OnInit {
 
   /** indica si el menu ya esta creado */
-  public isStartUp = true;
+  public isStartUp = false;
 
   /**
    * @param shellState, se utiliza para obtener los Modulos

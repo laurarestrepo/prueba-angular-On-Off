@@ -1,6 +1,16 @@
 <!-- panel principal -->
 <div class="header">
   <div class="header-content">
+
+    <!-- icono hidden menu -->
+    <div class="ui-g-3 text-right p-0">
+      <div class="hambu" (click)="shellState.menu.toggleMenu()"
+        [@icon-open-close]="(shellState.screen.isBigScreen() && (shellState.menu.isToogleMenuFirstTime || shellState.menu.isMenuOpen)) ? 'icon-open-menu' : ''">
+        <img src="assets/images/back@3x.svg"
+          [class]="(shellState.screen.isBigScreen() && (shellState.menu.isToogleMenuFirstTime || shellState.menu.isMenuOpen))  ? '' : 'rotation'"
+          class="back" />
+      </div>
+    </div>
     <!-- nombre usuario -->
     <div class="user-info">
       <span class="font-new-roman font-size-15" style="color: #fff;">
@@ -15,7 +25,7 @@
       </span>
     </div>
 
-   
+
     <!-- foto del usuario -->
     <div (click)="menuUserSettings.toggle($event)" class="user-avatar">
       <span *ngIf="shellState.screen.isBigScreen()" class="font-new-roman font-size-16 mr-3">

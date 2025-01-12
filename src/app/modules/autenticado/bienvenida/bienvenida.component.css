@@ -124,10 +124,8 @@
 }
 
 .contenido {
-  padding-left: 260px;
-  padding-right: 20px;
   padding-top: 70px;
-    padding-bottom: 90px;
+  padding-bottom: 90px;
 
 }
 
@@ -138,3 +136,4 @@
 :host ::ng-deep #smallMenu .ui-sidebar {
   padding: 0px !important;  
 }
+
